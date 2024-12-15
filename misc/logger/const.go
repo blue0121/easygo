@@ -1,0 +1,12 @@
+package logger
+
+const (
+	LOG_DATETIME = "2006-01-02 15:04:05.000"
+
+	LOG_DEBUG = "DEBUG"
+	LOG_INFO  = "INFO"
+	LOG_WARN  = "WARN"
+	LOG_ERROR = "ERROR"
+	LOG_FATAL = "FATAL"
+	LOG_PANIC = "PANIC"
+)

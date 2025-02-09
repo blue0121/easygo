@@ -15,6 +15,21 @@ func TestHashMap_Load(t *testing.T) {
 	assert.Equal(t, 11, v)
 }
 
+func TestHashMap_StoreAll(t *testing.T) {
+	m1 := NewHashMap[int, int]()
+	m1.Store(1, 11)
+
+	m2 := NewHashMap[int, int]()
+	m2.Store(2, 22)
+
+	m3 := NewHashMap[int, int]()
+	m3.StoreAll(m1)
+	m3.StoreAll(m2)
+	assert.Equal(t, 2, m3.Size())
+	assert.Equal(t, 11, m3.LoadOrDefault(1, 100))
+	assert.Equal(t, 22, m3.LoadOrDefault(2, 100))
+}
+
 func TestHashMap_LoadIfAbsent(t *testing.T) {
 	f1 := func(k int) int {
 		return 10 + k
@@ -39,4 +54,15 @@ func TestHashMap_NewHashMapFrom(t *testing.T) {
 		assert.Equal(t, value, m.LoadOrDefault(key, 0))
 		return true
 	})
+}
+
+func TestHashMap_LoadAndStore(t *testing.T) {
+	m := NewHashMap[int, int]()
+	r1, ok := m.LoadAndStore(1, 11)
+	assert.Equal(t, 0, r1)
+	assert.True(t, ok)
+
+	r2, ok := m.LoadAndStore(1, 12)
+	assert.Equal(t, 11, r2)
+	assert.False(t, ok)
 }

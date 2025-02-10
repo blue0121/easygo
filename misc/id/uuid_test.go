@@ -9,22 +9,14 @@ import (
 
 func TestUuidV7(t *testing.T) {
 	c := 10
-	uidMap := make(map[string]struct{}, c)
-	uidList := make([]string, 0, c)
+	uuidMap := make(map[string]struct{}, c)
+	uuidList := make([]string, 0, c)
 	for i := 0; i < c; i++ {
-		id := NewUuid()
-		uidMap[id.String()] = struct{}{}
-		uidList = append(uidList, id.String())
-		logger.Info(id.String())
-
-		id2, err := FromUuidString(id.String())
-		assert.NoError(t, err)
-		assert.Equal(t, id, id2)
-
-		id3, err := FromUuidBytes(id.Bytes())
-		assert.NoError(t, err)
-		assert.Equal(t, id, id3)
+		uuid := GenUUID()
+		uuidMap[uuid] = struct{}{}
+		uuidList = append(uuidList, uuid)
+		logger.Info(uuid)
 	}
-	assert.Equal(t, c, len(uidMap))
-	assert.True(t, sort.StringsAreSorted(uidList))
+	assert.Equal(t, c, len(uuidMap))
+	assert.True(t, sort.StringsAreSorted(uuidList))
 }
